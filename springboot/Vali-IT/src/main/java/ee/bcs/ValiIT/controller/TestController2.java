@@ -1,9 +1,9 @@
 package ee.bcs.ValiIT.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class TestController2 {
@@ -76,5 +76,39 @@ public class TestController2 {
 
     //LESSON3HARD DONE
 
+    //DAY 6 GETMAPPING, PUTMAPPING, POSTMAPPING, DELETEMAPPING
+    // new list of students
+    private static final List<Student> students = new ArrayList<>();
 
+    //get all students
+    @GetMapping("student")
+    public static List<Student> getAllStudent() {
+        return students;
+    }
+
+    //get specific student by list index
+    @GetMapping("student/{id}")
+    public static Student getStudent(@PathVariable("id") int a) {
+        return students.get(a);
+    }
+
+    //add student
+    @PostMapping("student")
+    public void postdto(@RequestBody Student addStudent) {
+
+        students.add(addStudent);
+    }
+
+    //change student data by list index
+    @PutMapping("student/{id}")
+    public void chng(@RequestBody Student changeStudent, @PathVariable("id") int a) {
+
+        students.set(a, changeStudent);
+    }
+
+    //delete student data by list index
+    @DeleteMapping("student/{id}")
+    public void remove(@PathVariable("id") int a) {
+        students.remove(a);
+    }
 }
