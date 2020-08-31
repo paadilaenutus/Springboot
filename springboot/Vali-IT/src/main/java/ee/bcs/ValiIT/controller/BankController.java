@@ -18,11 +18,18 @@ public class BankController {
         accNrs.put(create.getAccNr(), create.getBalance());
     }
 
+    //get balance by account index
+    @GetMapping("bank/{id}")
+    public BigInteger balance(@PathVariable("id") String a) {
+
+        return accNrs.get(a);
+    }
+
     //deposit money
     @PutMapping("bank/{id}")
-    public void deposit(@RequestBody Bank depositMoney, @PathVariable("id") BigInteger a) {
-        a = depositMoney.getBalance().add(a);
-        accNrs.put(depositMoney.getAccNr(), a);
+    public void deposit(@RequestBody Bank depositMoney, @PathVariable("id") BigInteger i) {
+        i = depositMoney.getBalance().add(i);
+        accNrs.put(depositMoney.getAccNr(), i);
     }
 
     //get all accounts & balances
@@ -31,10 +38,5 @@ public class BankController {
         return accNrs;
     }
 
-    //get balance by account index
-    @GetMapping("bank/{id}")
-    public BigInteger balance(@PathVariable("id") String a) {
 
-        return accNrs.get(a);
-    }
 }
