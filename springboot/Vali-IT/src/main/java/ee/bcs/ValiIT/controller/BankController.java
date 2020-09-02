@@ -1,9 +1,12 @@
 package ee.bcs.ValiIT.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class BankController {
@@ -65,5 +68,26 @@ public class BankController {
     @GetMapping("bank")
     public HashMap<String, BigInteger> getAll() {
         return accNrs;
+    }
+
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    @PutMapping("sqltest")
+    public void update() {
+        String sql = "insert into accounts(account_nr, balance) values(:accountNr, :balance)";
+        Map<String, Object> paramMap = new HashMap();
+        paramMap.put("accountNr", "EE2124");
+        paramMap.put("balance", 5454);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+    @GetMapping("sql")
+    public String returnData() {
+        String sql = "select balance from accounts where id = :id";
+        Map paramMap = new HashMap<>();
+        paramMap.put("id", 8);
+        String vastus = jdbcTemplate.queryForObject(sql, paramMap, String.class);
+        return vastus;
     }
 }
