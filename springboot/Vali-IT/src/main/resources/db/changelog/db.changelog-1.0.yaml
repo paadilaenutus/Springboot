@@ -1,0 +1,24 @@
+  databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: tenno
+        changes:
+          - createTable:
+              tableName: accounts
+              columns:
+                - column:
+                    name: id
+                    type: bigint
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: account_nr
+                    type: text
+                - column:
+                    name: balance
+                    type: numeric
+                - column:
+                    name: client_id
+                    type: bigint
