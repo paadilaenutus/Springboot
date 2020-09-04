@@ -4,6 +4,22 @@
         author: tenno
         changes:
           - createTable:
+              tableName: clients
+              columns:
+                - column:
+                    name: id
+                    type: bigint
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: first_name
+                    type: text
+                - column:
+                    name: last_name
+                    type: text
+          - createTable:
               tableName: accounts
               columns:
                 - column:
@@ -21,4 +37,25 @@
                     type: numeric
                 - column:
                     name: client_id
+                    type: bigint
+                    constraints:
+                      foreignKeyName: fk_accounts_clients
+                      nullable: false
+                      references: clients(id)
+          - createTable:
+              tableName: transactions
+              columns:
+                - column:
+                    name: trans_id
+                    type: bigint
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      foreignKeyName: fk_transactions_accounts
+                      nullable: false
+                - column:
+                    name: deposit
+                    type: bigint
+                - column:
+                    name: withdrawal
                     type: bigint

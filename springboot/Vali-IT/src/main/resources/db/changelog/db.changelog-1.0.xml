@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet  author="tenno"  id="1">
+        <createTable tableName="clients">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="text"/>
+            <column name="last_name" type="text"/>
+        </createTable>
+        <createTable tableName="accounts">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account_nr" type="text"/>
+            <column name="balance" type="numeric"/>
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_accounts_clients" nullable="false" references="clients(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="transactions">
+            <column name="trans_id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="deposit" type="bigint"/>
+            <column name="withdrawal" type="bigint"/>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_transactions_accounts" references="accounts(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
