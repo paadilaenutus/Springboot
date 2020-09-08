@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pimpHub</title>
+</head>
+<body>
+<img src="femme.jpeg"/>
+<br>
+<a href="#rate">see more</a>
+
+<br>
+<br>
+<br>
+<ul id="listy" name="listyName">
+    <li>List of items</li>
+    <li>õunad</li>
+    <li>peedid</li>
+</ul>
+<br>
+<br>
+<button id="testButton">
+    laenukalkulaator
+</button>
+<button id="testButton3">
+    nupp
+</button>
+<button id="testButton4">
+    test
+</button>
+<input id="text" type="input" name="password" value=pass>
+<button onclick="alert('hello jon.');">
+    HELLO
+ </button>
+<br>
+<br>
+<br>
+<br>
+<!--transactions-->
+<input id="transac" type="input" name="account number" value=transactions>
+<button id="submit">
+    submit
+</button>
+<span id="mess"></span>
+<!--client-->
+<form id="newPimp" action="/client.html">
+    <input type="submit" value="I'm a new P-I-M-P"/>
+</form>
+
+<!--account-->
+<form id="newAcc" action="/account.html">
+    <input type="submit" value="I want a treasury 4 my G"/>
+</form>
+
+<!--balance-->
+<form id="balance" action="/balance.html">
+    <input type="submit" value="Where's my dough"/>
+</form>
+<br>
+<!--withdrawal-->
+<a href="/withdraw.html">I'm a need sum dough</a>
+<br>
+<br>
+<!--deposit-->
+<a href="/deposit.html">For rainy days</a>
+<br>
+<br>
+<!--transfer-->
+<a href="/transfer.html">Share sum sugar</a>
+<br>
+<br>
+
+<script>
+    
+
+
+let testFunction = function calculateLoan(amount, years, interest = 2, name = "John"){
+    amount = 40000;
+    years = 15;
+    string = "sinu laenu tagasimakse suurus on ";
+    let amount2 = amount+(interest/100*years*amount);
+    console.log(string + amount2);
+}
+
+//let account = document.getElementById("transac");
+let submit = document.getElementById("submit");
+let message = document.getElementById("mess");
+//message.innerHTML;
+submit.onclick = function(){
+        //message.innerText = '';
+        fetch('/transactions', {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(response){
+            console.log(response);
+            return response.json();
+        })
+        .then(function(jsonData){
+                message.innerText = JSON.stringify(jsonData);
+                console.log(jsonData);
+        })
+        .catch(function(err){
+        })
+
+}
+
+
+
+let myElement = document.getElementById("text");
+let oldText = document.getElementById("testButton4");
+oldText.onclick = function(){
+    oldText.innerHTML = myElement.value;
+}
+
+
+let element = document.getElementById("listy");
+let element2 = document.getElementsByTagName("listyName");
+element.innerHTML = "halloooo";
+console.log(element.innerHTML);
+console.log(element);
+
+let laenukalkulaator = document.getElementById("testButton");
+laenukalkulaator.onclick = testFunction;
+
+let button3 = document.getElementById("testButton3");
+let action = function(){
+    alert("nokib");
+}
+button3.addEventListener('click', action);
+
+
+    
+</script>
+
+
+
+<br>
+<ol>
+    <li>List of items</li>
+    <li>koerad</li>
+    <li>hundid</li>
+</ol>
+<table width="500px" border="3" align="center" cellpadding="10" cellspacing="10” bgcolor="#597172”>
+    <tr>
+        <td>1</td>
+        <td bgcolor="#green" width="150">2</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td align="center" bgcolor="cyan">wtf</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td bgcolor="magenta">2 <input type="checkbox" name="orientation straight" value="ok"></input></td>
+        <td>3</td>
+    </tr>
+</table>
+
+    <input id="text" type="input" name="password" value="pass"/>
+    <input type="submit" name="submit" value="Submit" />
+
+    <input type="reset" name="reset" value="Reset" />
+
+    <input type="button" name="ok" value="OK" />
+
+
+
+
+<br>
+<br>
+<br>
+<dl>
+    <dt>
+        loll
+    </dt>
+    <dd>rumal inimene</dd>
+</dl>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2 id="rate">raaate</h2>
+<a href="http://www.rate.ee">rate this lady</a>
+
+
+
+</body>
+</html>

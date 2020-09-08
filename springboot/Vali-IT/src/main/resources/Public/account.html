@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Treasury</title>
+</head>
+<body>
+    <span>NEED A HIDEY-HOLE 4 YOUR STASH??</span>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input id="account" type="input" name="accountnr" value="Stash Numbuh">
+    <br>
+    <input id="balance" type="input" name="initbal" value="Initial Deposit">
+    <br>
+    <input id="id" type="input" name="client_id" value="Pimp ID">
+    <br>
+    <button id="submit">
+        submit
+    </button>
+    <br>
+    <br>
+    <span id="result"></span>
+    <script>
+    let accnr = document.getElementById("account");
+    let balance = document.getElementById("balance");
+    let id = document.getElementById("id");
+    let messages = document.getElementById("result");
+    
+    submit.onclick = function(){
+    
+                fetch('/account', {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        accountNr: accnr.value,
+                        balance: balance.value,
+                        clientID: id.value
+                    })
+                })
+                .then(function() {
+                    messages.innerText = "Success";
+                })
+                .catch(function(err) {
+                    messages.innerText = 'This does not seem right';
+                    console.log(err);
+                });
+    }
+    </script>
+</body>
+</html>

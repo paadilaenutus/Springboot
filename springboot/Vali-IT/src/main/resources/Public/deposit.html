@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit Sugar</title>
+</head>
+<body>
+    <span>IT AIN'T GONNA SERVE NO ONE GOOD TO KEEP TOO MUCH G AT HAND</span>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input id="account" type="input" name="accountnr" value="Stash Numbuh">
+    <br>
+    <input id="amount" type="input" name="initbal" value="G">
+
+    <br>
+    <button id="submit">
+        submit
+    </button>
+    <br>
+    <br>
+    <span id="result"></span>
+    <script>
+    let accnr = document.getElementById("account");
+    let amount = document.getElementById("amount");
+    let messages = document.getElementById("result");
+    
+    submit.onclick = function(){
+    
+                fetch('/deposit', {
+                    method: 'PUT',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        accountNr: accnr.value,
+                        amount: amount.value
+                    })
+                })
+                .then(function() {
+                    messages.innerText = "Success";
+                })
+                .catch(function(err) {
+                    messages.innerText = 'This does not seem right';
+                    console.log(err);
+                });
+    }
+    </script>
+</body>
+</html>
