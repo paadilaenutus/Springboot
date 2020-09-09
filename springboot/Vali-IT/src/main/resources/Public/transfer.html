@@ -3,8 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Share dough</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {background-color: mediumseagreen;}
+        input {color: green;}
+    </style>
 </head>
 <body>
+
+<span>GOTTA B FAIR & SHARE</span>
+
+<br>
+<br>
+<br>
+<br>
+<input id="payer" type="input" align="center" name="pay" value="Your Stash Numbuh"/>
+<br>
+<input id="payee" type="input" align="center" name="payee" value="Homie's Numbuh"/>
+<br>
+<input id="amount" type="input" align="center" name="sum" value="How Much U B Spendin"/>
+<br>
+<br>
+<button id="submit">
+    Pay B4 I Change My Mind
+</button>
+<button id="goBack">
+    Naah..
+</button>
+<br>
+<br>
+<span id="result"></span>
+
+<script>
+    let payer = document.getElementById("payer");
+    let payee = document.getElementById("payee");
+    let amount = document.getElementById("amount");
+    let messages = document.getElementById("result");
+
+    submit.onclick = function(){
+        fetch('/transfer', {
+            method: 'PUT',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                accountFrom: payer.value,
+                accountTo: payee.value,
+                amount: amount.value 
+            })
+        })
+        .then(function(){
+            messages.innerText = "Success";
+        })
+        .catch(function(err){
+            messages.innerText = "This does not seem right";
+            console.log(err);
+        })
+    }
+
+    goBack.onclick = function(){
+        window.location.href = '/index.html';
+    }
+</script>
+
 
 </body>
 </html>

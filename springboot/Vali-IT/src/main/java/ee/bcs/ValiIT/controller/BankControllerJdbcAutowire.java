@@ -26,8 +26,8 @@ public class BankControllerJdbcAutowire {
     }
 
     //get account balance
-    @GetMapping("balance")
-    public BigDecimal balance(@RequestBody String accNr) {
+    @GetMapping("balance/{accnr}")
+    public BigDecimal balance(@PathVariable("accnr") String accNr) {
         BigDecimal balance = jdbcService.balance(accNr);
         return balance;
     }
