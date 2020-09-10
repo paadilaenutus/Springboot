@@ -56,7 +56,7 @@ public class JdbcService {
     }
 
     //return transactions table
-    public List allTransactions() {
-        return jdbcRepository.allTransactions();
+    public List allTransactions(long accID) {
+        return jdbcRepository.allTransactions(accID);
     }
 }

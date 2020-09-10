@@ -122,7 +122,6 @@ function TokenSigning() {
 
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">Become Our Next P-I-M-P</h4>
-            <form class="needs-validation" novalidate="">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
@@ -138,11 +137,12 @@ function TokenSigning() {
                             Valid last name is required.
                         </div>
                     </div>
+                    <div class="mb-3" id="result"></div>
                 </div>
 
                 <hr class="mb-4">
-                <button id="submit" class="btn btn-primary btn-lg btn-block" type="submit">Create User</button>
-            </form>
+                <button id="submit" class="btn btn-primary btn-lg btn-block" type="submit">Create ID</button>
+                <button id="goBack" class="btn btn-primary btn-lg btn-block" type="submit">I'm a Pimp on my own Right</button>
         </div>
     </div>
 
@@ -179,8 +179,12 @@ fetch('/client', {
 			})
 			.catch(function(err) {
 				messages.innerText = 'This does not seem right';
-            });
+            })
 }
+
+    goBack.onclick = function(){
+        window.location.href = '/indexBS.html';
+    }
 </script>
 
 </body></html>

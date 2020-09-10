@@ -6,7 +6,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Deposit Sugar</title>
+    <title>Welcome to PimpHUB</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
 
@@ -39,36 +39,6 @@
 var _eid_promises = {};
 // Turn the incoming message from extension
 // into pending Promise resolving
-window.addEventListener("message", function(event) {
-    if(event.source !== window) return;
-    if(event.data.src && (event.data.src === "background.js")) {
-        console.log("Page received: ");
-        console.log(event.data);
-        // Get the promise
-        if(event.data.nonce) {
-            var p = _eid_promises[event.data.nonce];
-            // resolve
-            if(event.data.result === "ok") {
-                if(event.data.signature !== undefined) {
-                    p.resolve({hex: event.data.signature});
-                } else if(event.data.version !== undefined) {
-                    p.resolve(event.data.extension + "/" + event.data.version);
-                } else if(event.data.cert !== undefined) {
-                    p.resolve({hex: event.data.cert});
-                } else {
-                    console.log("No idea how to handle message");
-                    console.log(event.data);
-                }
-            } else {
-                // reject
-                p.reject(new Error(event.data.result));
-            }
-            delete _eid_promises[event.data.nonce];
-        } else {
-            console.log("No nonce in event msg");
-        }
-    }
-}, false);
 
 
 function TokenSigning() {
@@ -121,65 +91,46 @@ function TokenSigning() {
     <div class="row">
 
         <div class="col-md-12 order-md-1">
-            <h4 class="mb-3">It ain't gonna serve no one good to keep too much G at hand</h4>
+            <h4 class="mb-3">How can we be of service, Pimp?</h4>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="account">Stash Numbuh</label>
-                        <input id="account" type="text" class="form-control" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="amount">Much G</label>
-                        <input id="amount" type="text" class="form-control" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
+
+
                 </div>
 
                 <hr class="mb-4">
-                <button id="submit" class="btn btn-primary btn-lg btn-block" type="submit">Hand in</button>
-                <button id="goBack" class="btn btn-primary btn-lg btn-block" type="submit">You must be joking</button>
+                <button id="id" class="btn btn-primary btn-lg btn-block">Create ID</button>
+                <button id="newAccount" class="btn btn-primary btn-lg btn-block">Create Account</button>
+                <button id="balance" class="btn btn-primary btn-lg btn-block" type="submit">Check Balance</button>
+                <button id="deposit" class="btn btn-primary btn-lg btn-block" type="submit">Deposit</button>
+                <button id="withdraw" class="btn btn-primary btn-lg btn-block" type="submit">Withdraw</button>
+                <button id="transfer" class="btn btn-primary btn-lg btn-block" type="submit">Bank Transfer</button>
         </div>
     </div>
-
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">© 2020 PimpHUB</p>
 
     </footer>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
 <script>
-    let accnr = document.getElementById("account");
-    let amount = document.getElementById("amount");
-    let messages = document.getElementById("result");
-
-    submit.onclick = function(){
-
-                fetch('/deposit', {
-                    method: 'PUT',
-                    cache: 'no-cache',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        accountNr: accnr.value,
-                        amount: amount.value
-                    })
-                })
-                .then(function() {
-                    messages.innerText = "Success";
-                })
-                .catch(function(err) {
-                    messages.innerText = 'This does not seem right';
-                    console.log(err);
-                })
-    }
-        goBack.onclick = function(){
-        window.location.href = '/indexBS.html';
-    }
-    </script>
+id.onclick = function(){
+    window.location.href = '/clientBS.html';
+}
+newAccount.onclick = function(){
+    window.location.href = '/accountBS.html';
+}
+balance.onclick = function(){
+    window.location.href = '/balanceBS.html';
+}
+deposit.onclick = function(){
+    window.location.href = '/depositBS.html';
+}
+withdraw.onclick = function(){
+    window.location.href = '/withdrawBS.html';
+}
+transfer.onclick = function(){
+     window.location.href = '/transferBS.html';
+}
+</script>
 
 </body></html>

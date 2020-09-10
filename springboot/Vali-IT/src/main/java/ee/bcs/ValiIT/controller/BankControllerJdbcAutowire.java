@@ -51,8 +51,8 @@ public class BankControllerJdbcAutowire {
     }
 
     //return full transactions table
-    @GetMapping("transactions")
-    public List transactions() {
-        return jdbcService.allTransactions();
+    @GetMapping("transactions/{accID}")
+    public List transactions(@PathVariable("accID") long accID) {
+        return jdbcService.allTransactions(accID);
     }
 }

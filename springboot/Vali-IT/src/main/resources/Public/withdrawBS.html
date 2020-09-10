@@ -6,7 +6,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>New Pimp</title>
+    <title>GIMME</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
 
@@ -109,80 +109,6 @@ function TokenSigning() {
             type: "VERSION"
         });
     };
-}</script><script type="text/javascript">// Promises
-var _eid_promises = {};
-// Turn the incoming message from extension
-// into pending Promise resolving
-window.addEventListener("message", function(event) {
-    if(event.source !== window) return;
-    if(event.data.src && (event.data.src === "background.js")) {
-        console.log("Page received: ");
-        console.log(event.data);
-        // Get the promise
-        if(event.data.nonce) {
-            var p = _eid_promises[event.data.nonce];
-            // resolve
-            if(event.data.result === "ok") {
-                if(event.data.signature !== undefined) {
-                    p.resolve({hex: event.data.signature});
-                } else if(event.data.version !== undefined) {
-                    p.resolve(event.data.extension + "/" + event.data.version);
-                } else if(event.data.cert !== undefined) {
-                    p.resolve({hex: event.data.cert});
-                } else {
-                    console.log("No idea how to handle message");
-                    console.log(event.data);
-                }
-            } else {
-                // reject
-                p.reject(new Error(event.data.result));
-            }
-            delete _eid_promises[event.data.nonce];
-        } else {
-            console.log("No nonce in event msg");
-        }
-    }
-}, false);
-
-
-function TokenSigning() {
-    function nonce() {
-        var val = "";
-        var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-        for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
-        return val;
-    }
-
-    function messagePromise(msg) {
-        return new Promise(function(resolve, reject) {
-            // amend with necessary metadata
-            msg["nonce"] = nonce();
-            msg["src"] = "page.js";
-            // send message
-            window.postMessage(msg, "*");
-            // and store promise callbacks
-            _eid_promises[msg.nonce] = {
-                resolve: resolve,
-                reject: reject
-            };
-        });
-    }
-    this.getCertificate = function(options) {
-        var msg = {type: "CERT", lang: options.lang, filter: options.filter};
-        console.log("getCertificate()");
-        return messagePromise(msg);
-    };
-    this.sign = function(cert, hash, options) {
-        var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info};
-        console.log("sign()");
-        return messagePromise(msg);
-    };
-    this.getVersion = function() {
-        console.log("getVersion()");
-        return messagePromise({
-            type: "VERSION"
-        });
-    };
 }</script></head>
 <body class="bg-light">
 <div class="container">
@@ -196,7 +122,6 @@ function TokenSigning() {
 
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">I'm a be needing sum dough. Now</h4>
-            <form class="needs-validation" novalidate="">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="account">Stash Numbuh</label>
@@ -216,7 +141,7 @@ function TokenSigning() {
 
                 <hr class="mb-4">
                 <button id="submit" class="btn btn-primary btn-lg btn-block" type="submit">Gimme</button>
-            </form>
+                <button id="goBack" class="btn btn-primary btn-lg btn-block" type="submit">Already got plenty</button>
         </div>
     </div>
 
@@ -250,7 +175,10 @@ function TokenSigning() {
                 .catch(function(err) {
                     messages.innerText = 'This does not seem right';
                     console.log(err);
-                });
+                })
+    }
+        goBack.onclick = function(){
+        window.location.href = '/indexBS.html';
     }
 </script>
 

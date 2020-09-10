@@ -2,6 +2,7 @@ package ee.bcs.ValiIT.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -14,6 +15,8 @@ import java.util.Map;
 public class JdbcRepository {
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     //get balance
     public BigDecimal balance(String accNr) {
@@ -42,12 +45,28 @@ public class JdbcRepository {
         jdbcTemplate.update(accounts, paramMap);
     }
 
+    //encode password
+    public String encodePass(String password) {
+        password = passwordEncoder.encode(password);
+        return password;
+    }
+
+    //get encoded password from username
+    public String getPassword(String username) {
+        String password = "SELECT password FROM clients where username = :user";
+        Map paramMap = new HashMap();
+        paramMap.put("user", username);
+        return jdbcTemplate.queryForObject(password, paramMap, String.class);
+    }
+
     //create new client
     public long createClient(Client newClient) {
-        String clients = "INSERT INTO clients (first_name, last_name) values (:first, :last)";
+        String clients = "INSERT INTO clients (first_name, last_name, username, password) values (:first, :last, :user, :pass)";
         Map paramMap = new HashMap();
         paramMap.put("first", newClient.getFirstName());
         paramMap.put("last", newClient.getLastName());
+        paramMap.put("user", newClient.getUsername());
+        paramMap.put("pass", encodePass(newClient.getPassword()));
         jdbcTemplate.update(clients, paramMap);
         String id = "SELECT id FROM clients WHERE first_name = :first AND last_name = :last";
         return jdbcTemplate.queryForObject(id, paramMap, long.class);
@@ -80,10 +99,11 @@ public class JdbcRepository {
     }
 
     //return transactions table
-    public List allTransactions() {
+    public List allTransactions(long accID) {
         List<Transaction> allTransactions = new ArrayList<>();
-        String sql = "SELECT * FROM transactions ORDER BY trans_id";
+        String sql = "SELECT * FROM transactions WHERE account_id = :accId ORDER BY trans_id";
         Map paramMap = new HashMap();
+        paramMap.put("accId", accID);
         return allTransactions = jdbcTemplate.query(sql, paramMap, new ObjectRowMapper());
     }
 }
